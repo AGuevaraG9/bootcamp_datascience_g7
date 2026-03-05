@@ -18,7 +18,7 @@ while(opcion != 3):
     elif (opcion == 2):
         cantidad = int(input("Ingrese la cantidad en dólares : "))
         cambio = cantidad * tasacambio
-        print(f"Los {cantidad} dóalres son al cambio {cambio} soles")
+        print(f"Los {cantidad} dólares son al cambio {cambio} soles")
     elif (opcion == 3):
         print("Gracias por usar este convertidor, adiós!")
         break
