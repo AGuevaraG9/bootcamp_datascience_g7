@@ -30,3 +30,19 @@ def proceso_lento():
     print('Termino')
     
 proceso_lento()
+
+def formato_asteriscos(funcion):
+
+    def mifuncioninterna():
+        print("*"*50)
+        funcion()
+        print("*"*50)
+
+    return mifuncioninterna
+
+@formato_asteriscos
+def mostrar_mensaje():
+    print("Titulo de mi programa")
+    
+
+mostrar_mensaje()
