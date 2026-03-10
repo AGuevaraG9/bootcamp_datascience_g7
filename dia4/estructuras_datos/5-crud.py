@@ -68,15 +68,16 @@ while(True):
         print(" " * 10 + "ACTUALIZAR ALUMNO")
         print("=" * ANCHO)
         
-        alumno_buscado = input("Ingrese el codigo del alumno : ")
-        if alumno_buscado in dic_alumnos:
-            nombre = str(input("Ingrese el nuevo nombre : "))
-            email = str(input("Ingrese el nuevo email : "))
-            dic_alumno_editado = {
-                'nombre':nombre,
-                'email':email
-            }
-            dic_alumnos[alumno_buscado] = dic_alumno_editado
+        codigo = input("Ingrese el codigo del alumno : ")
+        if codigo in dic_alumnos:
+            print(f"Alumno encontrado: {dic_alumnos[codigo]['nombre']}")
+            print(f"Ingrese nuevos datos para el alumno o presionar enter para conservar datos anteriores")
+            nuevo_nombre = str(input(f"Ingrese el nuevo nombre {dic_alumnos[codigo]['nombre']}: "))
+            nuevo_email = str(input(f"Ingrese el nuevo email {dic_alumnos[codigo]['email']}: "))
+            if nuevo_nombre:
+                dic_alumnos[codigo]['nombre'] = nuevo_nombre
+            if nuevo_email:
+                dic_alumnos[codigo]['email'] = nuevo_email
             print("Alumno editado exitosamente!")
             print("=" * ANCHO)
         else:
