@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de cargos de seguro</title>
+    <style>
+        :root {
+            --bg-light: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            --card-light: #fff;
+            --text-light: #333;
+            --desc-light: #555;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-light);
+            transition: background 0.4s ease;
+        }
+
+        .card {
+            background-color: var(--card-light);
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.8s ease-in-out;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            transition: color 0.4s ease;
+        }
+
+        .description {
+            text-align: center;
+            color: var(--desc-light);
+            margin-bottom: 25px;
+            transition: color 0.4s ease;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            display: block;
+            transition: color 0.4s ease;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s, background-color 0.4s ease, color 0.4s ease;
+        }
+
+        input[type="number"].form-control {
+            padding-right: 30px;
+            /* espacio para los botones internos */
+            box-sizing: border-box;
+            /* asegura que el padding se incluya en el ancho */
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 1.2em;
+            text-align: center;
+            color: var(--text-light);
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+
+
+<body>
+    <main class="card">
+
+        <h1>Predicción de cargos de seguro</h1>
+        <p class="description">Ingrese los datos del paciente para obtener una predicción de los cargos de seguro.</p>
+        <form class="form" method="POST" action="/">
+            <div class="form-group">
+                <label for="smoker">Fumador:</label>
+                <select name="smoker" id="smoker" class="form-control">
+                    <option value="0" {% if request.form.get('smoker')=='0' %}selected{% endif %}>No</option>
+                    <option value="1" {% if request.form.get('smoker')=='1' %}selected{% endif %}>Sí</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="age">Edad:</label>
+                <input type="number" name="age" id="age" class="form-control" step="1"
+                    value="{{ request.form.get('age', '') }}">
+            </div>
+            <div class="form-group">
+                <label for="bmi">Índice de Masa Corporal (BMI):</label>
+                <input type="number" name="bmi" id="bmi" class="form-control" step="1"
+                    value="{{ request.form.get('bmi', '') }}">
+            </div>
+            <button type="submit" class="btn-primary">Obtener Predicción</button>
+        </form>
+        {% if predicted_charges %}
+        <div class="result">
+            <p>La predicción de los cargos de seguro es: {{ predicted_charges }}</p>
+        </div>
+        {% endif %}
+    </main>
+</body>
+
+</html>
